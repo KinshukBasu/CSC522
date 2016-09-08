@@ -137,7 +137,7 @@ ax1.plot(lat_mean, long_mean, 'bx', label='P')
 ax1.plot(nx_others, ny_others, 'bs', label='other points')
 ax1.plot(nx, ny, 'ro', label='the 10 closest points\nin Euclidean distance')
 
-legend = ax1.legend(loc='lower left', shadow=True)
+legend = ax1.legend(loc='lower right', shadow=True)
 
 vari = 0
 anno_length = 20;
