@@ -85,7 +85,7 @@ class Tesla_position:
 	def __repr__(self):
 		return "%d, %.17f, %.17f, %f, %f, %f, %f, %f, %f\n" % (self.i+1, self.x, self.y, self.euc, self.mah, self.cit, self.min, self.che, self.cos)
 	def toString(self):
-		return "%d, %.17f, %.17f, %f, %f, %f, %f, %f, %f\n" % (self.i+1, self.x, self.y, self.euc, self.mah, self.cit, self.min, self.che, self.cos)
+		return "%d, %.17f, %.17f, %.17f, %.17f, %.17f, %.17f, %.17f, %.17f\n" % (self.i+1, self.x, self.y, self.euc, self.mah, self.cit, self.min, self.che, self.cos)
 		
 pos = []
 for i in range(len(xf)):
