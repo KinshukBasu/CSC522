@@ -48,7 +48,7 @@ def Minkowski(xf,yf,xmean,ymean):
 def Chebyshev(xf,yf,xmean,ymean):
 	res = []
 	for i in range(0, len(xf)):
-		s = abs(max((xf[i]-xmean),(yf[i]-ymean)))
+		s = max(abs((xf[i]-xmean), abs((yf[i]-ymean))
 		res.append(s)
 	return(res)
 
