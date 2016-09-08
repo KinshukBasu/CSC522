@@ -16,9 +16,9 @@ ax1 = fig.add_subplot(111)
 
 ax1.set_title("Positions of Tesla")	# figure title
 ax1.set_xlabel('latitude')	# x axis label
-ax1.set_ylabel('longitude'))	# y axis label
+ax1.set_ylabel('longitude')	# y axis label
 
-ax1.plot(x,y, c='r', label='Path of Tesla')	# line color=red, line label
+ax1.plot(x, y, c='r', label='Path of Tesla')	# line color=red, line label
 legend = ax1.legend(loc='lower right', shadow=True)	# location of label
 
 plt.show()
