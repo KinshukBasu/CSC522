@@ -108,7 +108,7 @@ print
 print 'Sorted by Chebyshev distance'
 pos.sort(key=attrgetter('che'))
 for i in range(10):
-	print pos[i].toStringEuc()
+	print pos[i].toStringChe()
 
 nx = []
 ny = []

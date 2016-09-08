@@ -103,7 +103,7 @@ class Tesla_position:
 pos = []
 for i in range(len(xf)):
 	pos.append(Tesla_position(i, xf[i], yf[i], Euclidean_d[i], Mahalanobis_d[i], CityBlock_d[i], Minkowski_d[i], Chebyshev_d[i], Cosine_d[i]))
-		
+			
 print
 print 'Sorted by Euclidean distance'
 pos.sort(key=attrgetter('euc'))

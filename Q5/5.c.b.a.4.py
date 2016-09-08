@@ -108,7 +108,7 @@ print
 print 'Sorted by Minkowski metric (for p=3)'
 pos.sort(key=attrgetter('min'))
 for i in range(10):
-	print pos[i].toStringEuc()
+	print pos[i].toStringMin()
 
 nx = []
 ny = []

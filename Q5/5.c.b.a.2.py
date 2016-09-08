@@ -108,7 +108,7 @@ print
 print 'Sorted by Mahalanobis distance'
 pos.sort(key=attrgetter('mah'))
 for i in range(10):
-	print pos[i].toStringEuc()
+	print pos[i].toStringMah()
 
 nx = []
 ny = []

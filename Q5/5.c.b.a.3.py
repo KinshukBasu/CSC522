@@ -108,7 +108,7 @@ print
 print 'Sorted by City block metric'
 pos.sort(key=attrgetter('cit'))
 for i in range(10):
-	print pos[i].toStringEuc()
+	print pos[i].toStringCit()
 
 nx = []
 ny = []

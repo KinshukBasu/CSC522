@@ -43,12 +43,24 @@ for i in range(len(xf)):
 	Euclidean_d.append(minkowski_distance(xm, xp, 2))
 	
 # 2. Mahalanobis distance
+def MahaDist(xdata,ydata,xmean,ymean):
+	res = []
+
+	for i in range(0,len(xdata)):
+		x[i] = xdata[i]-ymean
+		y[i] = ydata[i]-ymean
+
+	S = np.matrix(np.cov(x,y, rowvar=False))
+
+	for i in range(0, len(x)):
+		p = np.matrix([x[i],y[i]])
+		res.append(float(np.sqrt(p*S*(np.matrix.transpose(p)))) )
+
+	return(res)
+	
 Mahalanobis_d = []
 
-for i in range(len(xf)):
-	xm = [xf[i], yf[i]]
-	VI = np.linalg.inv(np.cov(xf, yf))
-	Mahalanobis_d.append(distance.mahalanobis(xm, xp, VI))
+Mahalanobis_d = MahaDist(xf, yf, lat_mean, long_mean)
 
 # 3. City block metric	
 CityBlock_d = []
@@ -58,18 +70,29 @@ for i in range(len(xf)):
 	CityBlock_d.append(minkowski_distance(xm, xp, 1))
 
 # 5. Chebyshev distance
+def Chebyshev(xf,yf,xmean,ymean):
+	res = []
+	for i in range(0, len(xf)):
+		s = max(abs(xf[i]-xmean), abs(yf[i]-ymean))
+		res.append(s)
+	return(res)
+	
 Chebyshev_d = []
 
-for i in range(len(xf)):
-	xm = [xf[i], yf[i]]
-	Chebyshev_d.append(distance.chebyshev(xm, xp))
+Chebyshev_d = Chebyshev(xf, yf, lat_mean, long_mean)
 
 # 6. Cosine distance
+def Cosine(xf,yf,xmean,ymean):
+	res = []
+	for i in range(0, len(xf)):
+		s = ((xf[i]*xmean)+(yf[i]*ymean))/( (np.sqrt(xf[i]**2 + yf[i]**2))*(np.sqrt(xmean**2 + ymean**2)) )
+		res.append(s)
+		
+	return(res)
+
 Cosine_d = []
 
-for i in range(len(xf)):
-	xm = [xf[i], yf[i]]
-	Cosine_d.append(distance.cosine(xm, xp))
+Cosine_d = Cosine(xf, yf, lat_mean, long_mean)
 
 class Tesla_position:
 	def __init__(self, i, x, y, euc, mah, cit, min, che, cos):

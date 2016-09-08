@@ -108,7 +108,7 @@ print
 print 'Sorted by Cosine distance'
 pos.sort(key=attrgetter('cos'))
 for i in range(10):
-	print pos[i].toStringEuc()
+	print pos[i].toStringCos()
 
 nx = []
 ny = []
