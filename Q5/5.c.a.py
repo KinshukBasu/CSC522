@@ -5,7 +5,7 @@ from decimal import Decimal
 from scipy.spatial import distance
 from operator import itemgetter, attrgetter, methodcaller
 
-x =[]
+x = []
 y = []
 
 with open("locations.csv") as f: 
@@ -23,77 +23,53 @@ long_mean = np.average(yf)
 print 'Mean of latitude values: %f' % (lat_mean)
 print 'Mean of longitude values: %f' % (long_mean)
 
-Euclidean_d = []
-
-for i in xrange(len(xf)):
-	Euclidean_d.append(np.sqrt((xf[i]-lat_mean)**2 + (yf[i]-long_mean)**2))
-
-#print Euclidean_d[:3]
-
-# Mahalanobis distance
-
-# Ackowledge: used from http://kldavenport.com/mahalanobis-distance-and-outliers/
-def MahalanobisDist(x, y):
-    covariance_xy = np.cov(x,y, rowvar=0)
-    inv_covariance_xy = np.linalg.inv(covariance_xy)
-    xy_mean = np.mean(x),np.mean(y)
-    x_diff = np.array([x_i - xy_mean[0] for x_i in x])
-    y_diff = np.array([y_i - xy_mean[1] for y_i in y])
-    diff_xy = np.transpose([x_diff, y_diff])
-    
-    md = []
-    for i in range(len(diff_xy)):
-        md.append(np.sqrt(np.dot(np.dot(np.transpose(diff_xy[i]),inv_covariance_xy),diff_xy[i])))
-    return md
-
-Mahalanobis_d = MahalanobisDist(xf, yf)
-#print Mahalanobis_d[:3]
-
-# City block metric
-
-# Ackowledge: used from http://dataaspirant.com/2015/04/11/five-most-popular-similarity-measures-implementation-in-python/
-def manhattan_distance(x,y):
-	return sum(abs(a-b) for a,b in zip(x,y))
-	
-CityBlock_d = []
-
 xp = [lat_mean, long_mean]
-for i in range(len(xf)):
-	xm = [xf[i], yf[i]]
-	CityBlock_d.append(manhattan_distance(xm, xp))
-#print CityBlock_d[:3]
 
-# Minkowski metric (for p=3)
-
-# Ackowledge: used from http://dataconomy.com/implementing-the-five-most-popular-similarity-measures-in-python/
-def nth_root(value, n_root):
-	root_value = 1/float(n_root)
-	return round (Decimal(value) ** Decimal(root_value),3)
-
+# 4. Minkowski Distance (General)
 def minkowski_distance(x, y, p_value):
-	return nth_root(sum(pow(abs(a-b),p_value) for a,b in zip(x, y)),p_value)
+	return pow(sum(pow(abs(a-b),p_value) for a,b in zip(x, y)), 1./p_value)
 	
 Minkowski_d = []
 
 for i in range(len(xf)):
 	xm = [xf[i], yf[i]]
 	Minkowski_d.append(minkowski_distance(xm, xp, 3))
-#print Minkowski_d[:30]
 
-# Chebyshev distance
+# 1. Euclidean distance
+Euclidean_d = []
 
+for i in range(len(xf)):
+	xm = [xf[i], yf[i]]
+	Euclidean_d.append(minkowski_distance(xm, xp, 2))
+	
+# 2. Mahalanobis distance
+Mahalanobis_d = []
+
+for i in range(len(xf)):
+	xm = [xf[i], yf[i]]
+	VI = np.linalg.inv(np.cov(xf, yf))
+	Mahalanobis_d.append(distance.mahalanobis(xm, xp, VI))
+
+# 3. City block metric	
+CityBlock_d = []
+
+for i in range(len(xf)):
+	xm = [xf[i], yf[i]]
+	CityBlock_d.append(minkowski_distance(xm, xp, 1))
+
+# 5. Chebyshev distance
 Chebyshev_d = []
+
 for i in range(len(xf)):
 	xm = [xf[i], yf[i]]
 	Chebyshev_d.append(distance.chebyshev(xm, xp))
-#print Chebyshev_d[:30]
 
-# Cosine distance
+# 6. Cosine distance
 Cosine_d = []
+
 for i in range(len(xf)):
 	xm = [xf[i], yf[i]]
 	Cosine_d.append(distance.cosine(xm, xp))
-#print Cosine_d[:10]
 
 class Tesla_position:
 	def __init__(self, i, x, y, euc, mah, cit, min, che, cos):
