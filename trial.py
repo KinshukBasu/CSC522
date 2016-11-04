@@ -4,6 +4,8 @@ import jupyter as jpy
 import matplotlib.pyplot as plt
 from sklearn import linear_model
 import numpy as np
+from sklearn.preprocessing import PolynomialFeatures
+
 
 from scipy.optimize import curve_fit
 
@@ -41,5 +43,10 @@ SStotal = len(Y)*np.var(Y)
 R2 = 1 - SSresid/SStotal
 print R2
 
+#Experimentation with polynomial regression
+#http://stats.stackexchange.com/questions/58739/polynomial-regression-using-scikit-learn
+#http://stats.stackexchange.com/questions/70712/python-creating-a-polynomial-model-with-two-input-variables
+poly = PolynomialFeatures(degree=2)
+X_poly = poly.fit_transform(X)
 
 #[p,v] = np.polyfit(X,Y,5);
