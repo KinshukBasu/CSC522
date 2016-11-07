@@ -1,0 +1,2 @@
+Columns 1-60, 2nd degree polynomial
+R-squared = 0.462232047951
