@@ -29,8 +29,8 @@ print coeffs.shape
 predictedY = np.dot(X,coeffs) + reg.intercept_
 print predictedY.shape
 
-error = abs(Y-predictedY)
-print "Mean error in prediction : ",
+error = pow((Y-predictedY),2)
+print "RMSE error in prediction : ",
 print error.mean()
 
 
