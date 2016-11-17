@@ -1,11 +1,11 @@
 # KNN
-# KNeighborsRegressor
+# RadiusNeighborsRegressor
 
 import pandas as pd
-from sklearn.neighbors import KNeighborsRegressor
+from sklearn.neighbors import RadiusNeighborsRegressor
 import numpy as np
 
-KNN_K_VALUE = 3
+KNN_RADIUS = 1.0
 
 df = pd.read_csv("blogData_train.csv", header=None)		# read from the first line
 
@@ -33,7 +33,7 @@ for i in range(row_count):
 	#print('Y')
 	#print(Y)
 	
-	neigh = KNeighborsRegressor(n_neighbors = KNN_K_VALUE)
+	neigh = RadiusNeighborsRegressor(radius = KNN_RADIUS)
 	neigh.fit(X, Y)
 	
 	predicted_one_y = neigh.predict([X_TEST])
@@ -42,6 +42,6 @@ for i in range(row_count):
 	
 	print(repr(i+1) + ' / ' + repr(row_count))
 #print(predictedY)
-np.savetxt("predicted_Y_KNN_3.csv", predictedY, delimiter=",", fmt='%10.10f')
+np.savetxt("predicted_Y_KNN_RADIUS_1.csv", predictedY, delimiter=",", fmt='%10.10f')
 	
 	
